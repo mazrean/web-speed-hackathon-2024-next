@@ -1,0 +1,4 @@
+[[d1_databases]]
+binding = "DB" # i.e. available in your Worker on env.DB
+database_name = "wsh2024"
+database_id = "603cf399-2a58-4778-92a9-5d57f68729e2"
