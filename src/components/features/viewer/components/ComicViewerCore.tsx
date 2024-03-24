@@ -2,7 +2,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { useInterval, useUpdate } from 'react-use';
 import styled from 'styled-components';
 
-import { addUnitIfNeeded } from '../../../lib/css/addUnitIfNeeded';
+import { addUnitIfNeeded } from '@/lib/css/addUnitIfNeeded';
 import { useEpisode } from '../../episode/hooks/useEpisode';
 
 import { ComicViewerPage } from './ComicViewerPage';

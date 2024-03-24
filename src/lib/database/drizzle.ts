@@ -24,7 +24,7 @@ export function initializeDatabase() {
 
 export function getDatabase() {
   if (sqlite == null || database == null) {
-    throw new Error("Database is not initialized");
+    initializeDatabase();
   }
 
   return database;

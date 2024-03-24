@@ -5,8 +5,8 @@ import type { GetEpisodeListResponse } from "@/lib/schema/api/episodes/GetEpisod
 import type { GetEpisodeRequestParams } from "@/lib/schema/api/episodes/GetEpisodeRequestParams";
 import type { GetEpisodeResponse } from "@/lib/schema/api/episodes/GetEpisodeResponse";
 
-import type { DomainSpecificApiClientInterface } from "../../../lib/api/DomainSpecificApiClientInterface";
-import { apiClient } from "../../../lib/api/apiClient";
+import type { DomainSpecificApiClientInterface } from "@/lib/api/DomainSpecificApiClientInterface";
+import { apiClient } from "@/lib/api/apiClient";
 
 type EpisodeApiClient = DomainSpecificApiClientInterface<{
   fetch: [{ params: GetEpisodeRequestParams }, GetEpisodeResponse];

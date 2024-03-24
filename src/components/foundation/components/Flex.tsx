@@ -1,7 +1,9 @@
+'use client'
+
 import type * as CSS from 'csstype';
 import styled from 'styled-components';
 
-import { addUnitIfNeeded } from '../../lib/css/addUnitIfNeeded';
+import { addUnitIfNeeded } from '@/lib/css/addUnitIfNeeded';
 
 const _Flex = styled.div<{
   $align?: string;

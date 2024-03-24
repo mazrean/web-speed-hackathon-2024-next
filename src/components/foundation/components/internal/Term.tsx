@@ -1,17 +1,16 @@
-import styled from 'styled-components';
-
+import React from "react";
 import { TERM } from '../../constants/Term';
-import { Color, Space, Typography } from '../../styles/variables';
+import { Text, Content } from '../Text';
 import { Spacer } from '../Spacer';
-import { Text } from '../Text';
+import { Color, Space, Typography } from '@/components/foundation/styles/variables';
 
-const _Content = styled.section`
-  white-space: pre-line;
-`;
+type Props = {
+  a11yId: string;
+};
 
-export default function Term({a11yId} : { a11yId: string }) {
+const Term: React.FC<Props> = ({ a11yId }) => {
   return (
-    <_Content aria-labelledby={a11yId} role="dialog">
+    <Content aria-labelledby={a11yId} role="dialog">
       <Text as="h2" color={Color.MONO_100} id={a11yId} typography={Typography.NORMAL16}>
         利用規約
       </Text>
@@ -19,6 +18,8 @@ export default function Term({a11yId} : { a11yId: string }) {
       <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
         {TERM}
       </Text>
-    </_Content>
+    </Content>
   );
 };
+
+export default Term;

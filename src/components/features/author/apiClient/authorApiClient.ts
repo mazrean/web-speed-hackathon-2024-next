@@ -5,8 +5,8 @@ import type { GetAuthorListResponse } from "@/lib/schema/api/authors/GetAuthorLi
 import type { GetAuthorRequestParams } from "@/lib/schema/api/authors/GetAuthorRequestParams";
 import type { GetAuthorResponse } from "@/lib/schema/api/authors/GetAuthorResponse";
 
-import type { DomainSpecificApiClientInterface } from "../../../lib/api/DomainSpecificApiClientInterface";
-import { apiClient } from "../../../lib/api/apiClient";
+import type { DomainSpecificApiClientInterface } from "@/lib/api/DomainSpecificApiClientInterface";
+import { apiClient } from "@/lib/api/apiClient";
 
 type AuthorApiClient = DomainSpecificApiClientInterface<{
   fetch: [{ params: GetAuthorRequestParams }, GetAuthorResponse];

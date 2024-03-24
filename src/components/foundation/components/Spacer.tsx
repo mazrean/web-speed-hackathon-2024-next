@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react';
 import { useBoolean, useMount } from 'react-use';
 import styled from 'styled-components';
@@ -15,11 +17,5 @@ type Props = {
 };
 
 export const Spacer: React.FC<Props> = ({ height, width }) => {
-  const [mounted, toggleMounted] = useBoolean(false);
-
-  useMount(() => {
-    toggleMounted();
-  });
-
-  return mounted ? <_Spacer $height={height} $width={width} /> : null;
+  return <_Spacer $height={height} $width={width} />;
 };

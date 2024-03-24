@@ -1,46 +1,10 @@
 import { Suspense } from 'react';
-import { styled } from 'styled-components';
 
 import { Flex } from '../../../foundation/components/Flex';
-import { Image } from '../../../foundation/components/Image';
-import { Link } from '../../../foundation/components/Link';
+import { Image, AvatarWrapper, ImgWrapper2 } from '../../../foundation/components/Image';
+import { Wrapper2, ContentWrapper } from '../../../foundation/components/Box';
 import { Text } from '../../../foundation/components/Text';
-import { useImage } from '../../../foundation/hooks/useImage';
-import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
-
-const _Wrapper = styled(Link)`
-  display: grid;
-  gap: ${Space * 1}px;
-  background-color: ${Color.MONO_A};
-  padding: ${Space * 1.5}px;
-  border-radius: ${Radius.SMALL};
-  grid-template-columns: auto 1fr;
-  flex-shrink: 0;
-  border: 1px solid ${Color.MONO_30};
-`;
-
-const _ImgWrapper = styled.div`
-  width: 96px;
-  height: 96px;
-  > img {
-    border-radius: ${Radius.SMALL};
-  }
-`;
-
-const _ContentWrapper = styled.div`
-  display: grid;
-  gap: ${Space * 1}px;
-  max-width: 200px;
-  width: 100%;
-`;
-
-const _AvatarWrapper = styled.div`
-  width: 32px;
-  height: 32px;
-  > img {
-    border-radius: 50%;
-  }
-`;
+import { Color, Space, Typography } from '../../../foundation/styles/variables';
 
 type Props = {
   book: {
@@ -70,18 +34,13 @@ type Props = {
 };
 
 const FeatureCard: React.FC<Props> = ({ book }) => {
-  const imageUrl = useImage({ height: 96, imageId: book.image.id, width: 96 });
-  const authorImageUrl = useImage({ height: 32, imageId: book.author.image.id, width: 32 });
-
   return (
-    <_Wrapper href={`/books/${book.id}`}>
-      {imageUrl != null && (
-        <_ImgWrapper>
-          <Image alt={book.image.alt} height={96} objectFit="cover" src={imageUrl} width={96} />
-        </_ImgWrapper>
-      )}
+    <Wrapper2 href={`/books/${book.id}`}>
+      <ImgWrapper2>
+        <Image alt={book.image.alt} height={96} objectFit="cover" imageId={book.image.id} width={96} />
+      </ImgWrapper2>
 
-      <_ContentWrapper>
+      <ContentWrapper>
         <Text color={Color.MONO_100} typography={Typography.NORMAL16} weight="bold">
           {book.name}
         </Text>
@@ -90,17 +49,15 @@ const FeatureCard: React.FC<Props> = ({ book }) => {
         </Text>
 
         <Flex align="center" gap={Space * 1} justify="flex-end">
-          {authorImageUrl != null && (
-            <_AvatarWrapper>
-              <Image alt={book.author.name} height={32} loading='lazy' objectFit="cover" src={authorImageUrl} width={32} />
-            </_AvatarWrapper>
-          )}
+          <AvatarWrapper>
+            <Image alt={book.author.name} height={32} loading='lazy' objectFit="cover" imageId={book.author.image.id} width={32} />
+          </AvatarWrapper>
           <Text color={Color.MONO_100} typography={Typography.NORMAL14}>
             {book.author.name}
           </Text>
         </Flex>
-      </_ContentWrapper>
-    </_Wrapper>
+      </ContentWrapper>
+    </Wrapper2>
   );
 };
 

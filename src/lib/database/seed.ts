@@ -26,5 +26,3 @@ export const seeding = async () => {
   initializeDatabase();
   console.log("Finished seeding");
 };
-
-seeding();

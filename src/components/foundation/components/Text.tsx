@@ -1,8 +1,10 @@
+'use client'
+
 import type * as CSS from 'csstype';
 import React from 'react';
 import styled from 'styled-components';
 
-import type { Color, Typography } from '../styles/variables';
+import type { Color, Typography } from '@/components/foundation/styles/variables';
 
 const _Text = styled.span<{
   $color: string;
@@ -53,3 +55,7 @@ export const Text: React.FC<Props> = ({
     </_Text>
   );
 };
+
+export const Content = styled.section`
+  white-space: pre-line;
+`;

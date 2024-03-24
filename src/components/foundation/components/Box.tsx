@@ -1,9 +1,12 @@
+'use client'
+
 import type * as CSS from 'csstype';
 import type { AriaAttributes } from 'react';
 import styled from 'styled-components';
 
-import { addUnitIfNeeded } from '../../lib/css/addUnitIfNeeded';
-import type { Color, Radius } from '../styles/variables';
+import { addUnitIfNeeded } from '@/lib/css/addUnitIfNeeded';
+import { Color, Radius, Space } from '@/components/foundation/styles/variables';
+import { Link } from './Link';
 
 const _Box = styled.div<{
   $backgroundColor?: string;
@@ -182,3 +185,70 @@ export const Box: React.FC<Props> = ({
     </_Box>
   );
 };
+
+export const Wrapper = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  border-radius: ${Radius.SMALL};
+  background-color: ${Color.MONO_A};
+  max-width: 192px;
+  border: 1px solid ${Color.MONO_30};
+`;
+
+export const Wrapper2 = styled(Link)`
+  display: grid;
+  gap: ${Space * 1}px;
+  background-color: ${Color.MONO_A};
+  padding: ${Space * 1.5}px;
+  border-radius: ${Radius.SMALL};
+  grid-template-columns: auto 1fr;
+  flex-shrink: 0;
+  border: 1px solid ${Color.MONO_30};
+`;
+
+export const Wrapper3 = styled.li`
+  width: 100%;
+`;
+
+export const Wrapper4 = styled.div`
+  width: calc(100% + ${Space * 4}px);
+  margin-left: -${Space * 2}px;
+  margin-right: -${Space * 2}px;
+  margin-top: -${Space * 2}px;
+  position: relative;
+`;
+
+export const Wrapper5 = styled.div`
+  aspect-ratio: 16 / 9;
+  width: 100%;
+`;
+
+export const ContentWrapper = styled.div`
+  display: grid;
+  gap: ${Space * 1}px;
+  max-width: 200px;
+  width: 100%;
+`;
+
+export const Link2 = styled(Link)`
+  width: 100%;
+`;
+
+export const SearchLink = styled(Link)`
+  position: absolute;
+  right: ${Space * 1}px;
+  top: 0;
+  padding: ${Space * 1}px ${Space * 2}px;
+  border: 2px solid ${Color.MONO_A};
+  border-radius: ${Radius.X_LARGE};
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(50%);
+`;
+
+export const Content = styled.div`
+  height: 100%;
+  padding: 0 ${Space * 2}px;
+`;

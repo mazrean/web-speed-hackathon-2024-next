@@ -5,7 +5,7 @@ import { Box } from '../components/Box';
 import { Container } from '../components/Container';
 import { Flex } from '../components/Flex';
 import { Footer } from '../components/Footer';
-import { Color, Space } from '../styles/variables';
+import { Color, Space } from '@/components/foundation/styles/variables';
 
 const _Header = styled.header`
   padding: ${Space * 2}px;

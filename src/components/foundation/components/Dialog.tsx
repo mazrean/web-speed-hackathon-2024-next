@@ -1,11 +1,15 @@
+"use client";
+
 import { Close } from '@mui/icons-material';
 import { useAtom } from 'jotai';
 import styled from 'styled-components';
 
 import { DialogContentAtom } from '../atoms/DialogContentAtom';
-import { Color, Space } from '../styles/variables';
+import { Color, Space } from '@/components/foundation/styles/variables';
+import { Button2 } from './Button';
 
 import { Button } from './Button';
+import { useState } from 'react';
 
 const _Overlay = styled.div`
   position: fixed;
@@ -57,4 +61,29 @@ export const Dialog: React.FC = () => {
       </_Wrapper>
     </_Overlay>
   ) : null;
+};
+
+type Props = {
+  children: React.ReactNode;
+  label: string;
+};
+
+export const DialogWithButton: React.FC<Props> = ({children, label}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+      <Button2 disabled={false} onClick={() => setIsOpen(true)}>
+        {label}
+      </Button2>
+
+      {isOpen && <_Overlay>
+        <_Wrapper>
+          <_CloseButton onClick={() => setIsOpen(false)}>
+            <Close height={32} htmlColor={Color.MONO_A} width={32} />
+          </_CloseButton>
+          <_Container>{children}</_Container>
+        </_Wrapper>
+      </_Overlay>}
+    </>
+  );
 };

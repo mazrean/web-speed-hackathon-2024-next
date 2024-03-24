@@ -3,8 +3,8 @@ import { inject } from "regexparam";
 import type { GetFeatureListRequestQuery } from "@/lib/schema/api/features/GetFeatureListRequestQuery";
 import type { GetFeatureListResponse } from "@/lib/schema/api/features/GetFeatureListResponse";
 
-import type { DomainSpecificApiClientInterface } from "../../../lib/api/DomainSpecificApiClientInterface";
-import { apiClient } from "../../../lib/api/apiClient";
+import type { DomainSpecificApiClientInterface } from "@/lib/api/DomainSpecificApiClientInterface";
+import { apiClient } from "@/lib/api/apiClient";
 
 type FeatureApiClient = DomainSpecificApiClientInterface<{
   fetchList: [{ query: GetFeatureListRequestQuery }, GetFeatureListResponse];

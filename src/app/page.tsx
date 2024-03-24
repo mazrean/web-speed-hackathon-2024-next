@@ -1,97 +1,132 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import _ from 'lodash';
+import moment from 'moment-timezone';
+import { Suspense, useId } from 'react';
+
+import { BookCard } from '@/components/features/book/components/BookCard';
+import { FeatureCard } from '@/components/features/feature/components/FeatureCard';
+import { RankingCard } from '@/components/features/ranking/components/RankingCard';
+import { Box } from '@/components/foundation/components/Box';
+import { Flex } from '@/components/foundation/components/Flex';
+import { Spacer } from '@/components/foundation/components/Spacer';
+import { Text } from '@/components/foundation/components/Text';
+import { Color, Space, Typography } from '@/components/foundation/styles/variables';
+import { getDayOfWeekStr } from '@/lib/date/getDayOfWeekStr';
+import { Dialog } from '@/components/foundation/components/Dialog';
+import { GlobalStyle } from '@/components/foundation/styles/GlobalStyle';
+
+import { CoverSection } from './CoverSection';
+import { featureRepository, rankingRepository, releaseRepository } from "@/lib/repositories";
+
+const FeatureSection: React.FC<{
+  a11yId: string;
+}> = async ({a11yId}) => {
+  const result = await featureRepository.readAll({ query: {} });
+  if (result.isErr()) {
+    throw result.error;
+  }
+
+  const featureList = result.value;
+  return (
+    <Box aria-labelledby={a11yId} as="section" maxWidth="100%" mt={16} width="100%">
+      <Text as="h2" color={Color.MONO_100} id={a11yId} typography={Typography.NORMAL20} weight="bold">
+        ピックアップ
+      </Text>
+      <Spacer height={Space * 2} />
+      <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
+        <Flex align="stretch" direction="row" gap={Space * 2} justify="flex-start">
+          {_.map(featureList, (feature) => (
+            <FeatureCard key={feature.id} book={feature.book} />
+          ))}
+        </Flex>
+      </Box>
+    </Box>
+  );
+};
+
+const RankingSection: React.FC<{
+  a11yId: string;
+}> = async ({a11yId}) => {
+  const result = await rankingRepository.readAll({ query: {} });
+  if (result.isErr()) {
+    throw result.error;
+  }
+
+  const rankingList = result.value;
+  return (
+    <Box aria-labelledby={a11yId} as="section" maxWidth="100%" width="100%">
+      <Text as="h2" color={Color.MONO_100} id={a11yId} typography={Typography.NORMAL20} weight="bold">
+        ランキング
+      </Text>
+      <Spacer height={Space * 2} />
+      <Box maxWidth="100%" overflowX="hidden" overflowY="hidden">
+        <Flex align="center" as="ul" direction="column" justify="center">
+          {_.map(rankingList, (ranking) => (
+            <RankingCard key={ranking.id} book={ranking.book} />
+          ))}
+        </Flex>
+      </Box>
+    </Box>
+  );
+};
+
+const ReleaseSection: React.FC<{
+  a11yId: string;
+}> = async ({a11yId}) => {
+  const todayStr = getDayOfWeekStr(moment());
+  const result = await releaseRepository.read({ params: { dayOfWeek: todayStr } })
+  if (result.isErr()) {
+    throw result.error;
+  }
+
+  const release = result.value;
+  return (
+    <Box aria-labelledby={a11yId} as="section" maxWidth="100%" width="100%">
+      <Text as="h2" color={Color.MONO_100} id={a11yId} typography={Typography.NORMAL20} weight="bold">
+        本日更新
+      </Text>
+      <Spacer height={Space * 2} />
+      <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
+        <Flex align="stretch" gap={Space * 2} justify="flex-start">
+          {_.map(release.books, (book) => (
+            <BookCard key={book.id} book={book} />
+          ))}
+        </Flex>
+      </Box>
+    </Box>
+  );
+};
 
 export default function Home() {
+  const pickupA11yId = useId();
+  const rankingA11yId = useId();
+  const todayA11yId = useId();
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <>
+      <GlobalStyle />
+      <Dialog />
+      <Flex align="flex-start" direction="column" gap={Space * 2} justify="center" pb={Space * 2}>
+        <Box as="header" maxWidth="100%" width="100%">
+          <CoverSection />
+        </Box>
+        <Box as="main" maxWidth="100%" width="100%">
+          <Suspense fallback={null}>
+            <FeatureSection a11yId={pickupA11yId} />
+          </Suspense>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+          <Spacer height={Space * 2} />
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+          <Suspense fallback={null}>
+            <RankingSection a11yId={rankingA11yId} />
+          </Suspense>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+          <Spacer height={Space * 2} />
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+          <Suspense fallback={null}>
+            <ReleaseSection a11yId={todayA11yId} />
+          </Suspense>
+        </Box>
+      </Flex>
+    </>
   );
 }
-
-export const runtime = 'edge';

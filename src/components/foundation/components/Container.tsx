@@ -1,7 +1,9 @@
+"use client";
+
 import React from 'react';
 import styled from 'styled-components';
 
-import { BreakPoint, Color } from '../styles/variables';
+import { BreakPoint, Color } from '@/components/foundation/styles/variables';
 
 const _Container = styled.div`
   min-height: 100vh;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { decrypt } from '@wsh-2024/image-encrypt/src/decrypt';
 
-import { getImageUrl } from '../../../lib/image/getImageUrl';
+import { getImageUrl } from '@/lib/image/getImageUrl';
 
 const _Canvas = styled.canvas`
   height: 100%;

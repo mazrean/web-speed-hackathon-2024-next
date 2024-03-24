@@ -1,7 +1,9 @@
+'use client'
+
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { Color } from '../styles/variables';
+import { Color } from '@/components/foundation/styles/variables';
 
 const _Wrapper = styled.div`
   width: 100%;

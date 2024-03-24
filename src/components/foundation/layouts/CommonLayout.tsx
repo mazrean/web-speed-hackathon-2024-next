@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Container } from '../components/Container';
 import { Footer } from '../components/Footer';
-import { Space } from '../styles/variables';
+import { Space } from '@/components/foundation/styles/variables';
 
 const _Content = styled.div`
   height: 100%;

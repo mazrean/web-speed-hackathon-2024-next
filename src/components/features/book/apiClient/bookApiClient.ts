@@ -5,8 +5,8 @@ import type { GetBookListResponse } from "@/lib/schema/api/books/GetBookListResp
 import type { GetBookRequestParams } from "@/lib/schema/api/books/GetBookRequestParams";
 import type { GetBookResponse } from "@/lib/schema/api/books/GetBookResponse";
 
-import type { DomainSpecificApiClientInterface } from "../../../lib/api/DomainSpecificApiClientInterface";
-import { apiClient } from "../../../lib/api/apiClient";
+import type { DomainSpecificApiClientInterface } from "@/lib/api/DomainSpecificApiClientInterface";
+import { apiClient } from "@/lib/api/apiClient";
 
 type BookApiClient = DomainSpecificApiClientInterface<{
   fetch: [{ params: GetBookRequestParams }, GetBookResponse];
