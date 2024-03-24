@@ -252,3 +252,19 @@ export const Content = styled.div`
   height: 100%;
   padding: 0 ${Space * 2}px;
 `;
+
+export const HeadingWrapper = styled.section`
+  display: grid;
+  align-items: start;
+  grid-template-columns: auto 1fr;
+  padding-bottom: ${Space * 2}px;
+  gap: ${Space * 2}px;
+`;
+
+export const AuthorWrapper = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  gap: ${Space * 1}px;
+`;

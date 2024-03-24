@@ -1,47 +1,35 @@
-import styled from 'styled-components';
-
-import { Box } from '../../../foundation/components/Box';
+import { Box, Wrapper3, Link2 } from '../../../foundation/components/Box';
 import { Flex } from '../../../foundation/components/Flex';
-import { Image } from '../../../foundation/components/Image';
-import { Link } from '../../../foundation/components/Link';
+import { Image, ImgWrapper2 } from '../../../foundation/components/Image';
 import { Separator } from '../../../foundation/components/Separator';
 import { Spacer } from '../../../foundation/components/Spacer';
 import { Text } from '../../../foundation/components/Text';
 import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
 import { useEpisode } from '../hooks/useEpisode';
 
-const _Wrapper = styled.li`
-  width: 100%;
-`;
-
-const _Link = styled(Link)`
-  width: 100%;
-`;
-
-const _ImgWrapper = styled.div`
-  width: 96px;
-  height: 96px;
-  > img {
-    border-radius: ${Radius.SMALL};
-  }
-`;
-
 type Props = {
   bookId: string;
-  episodeId: string;
+  episode: {
+    chapter: number;
+    description: string;
+    id: string;
+    image: {
+      alt: string;
+      id: string;
+    };
+    name: string;
+  };
 };
 
-export const EpisodeListItem: React.FC<Props> = ({ bookId, episodeId }) => {
-  const { data: episode } = useEpisode({ params: { episodeId } });
-
+export const EpisodeListItem: React.FC<Props> = ({ bookId, episode }) => {
   return (
-    <_Wrapper>
-      <_Link href={`/books/${bookId}/episodes/${episode.id}`}>
+    <Wrapper3>
+      <Link2 href={`/books/${bookId}/episodes/${episode.id}`}>
         <Spacer height={Space * 1.5} />
         <Flex align="flex-start" gap={Space * 2.5} justify="flex-start">
-          <_ImgWrapper>
+          <ImgWrapper2>
             <Image alt={episode.name} height={96} objectFit="cover" imageId={episode.image.id} width={96} />
-          </_ImgWrapper>
+          </ImgWrapper2>
           <Box width="100%">
             <Flex align="flex-start" direction="column" gap={Space * 1} justify="flex-start">
               <Flex align="center" justify="flex-start">
@@ -61,7 +49,7 @@ export const EpisodeListItem: React.FC<Props> = ({ bookId, episodeId }) => {
         </Flex>
         <Spacer height={Space * 1.5} />
         <Separator />
-      </_Link>
-    </_Wrapper>
+      </Link2>
+    </Wrapper3>
   );
 };
