@@ -8,8 +8,6 @@ import { compressMiddleware } from "@/lib/hono/middlewares/compressMiddleware";
 
 import { apiApp } from "@/lib/hono";
 
-export const runtime = "edge";
-
 const app = new Hono().basePath("/api");
 
 app.use(secureHeaders());

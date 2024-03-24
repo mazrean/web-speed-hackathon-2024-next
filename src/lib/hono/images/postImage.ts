@@ -6,9 +6,9 @@ import { createRoute, OpenAPIHono } from "@hono/zod-openapi";
 import { PostImageRequestBodySchema } from "@/lib/schema/api/images/PostImageRequestBody";
 import { PostImageResponseSchema } from "@/lib/schema/api/images/PostImageResponse";
 
+import { IMAGES_PATH } from "@/lib/constants/paths";
 import { authMiddleware } from "@/lib/hono/middlewares/authMiddleware";
 import { imageRepository } from "@/lib/repositories";
-import { getStorage } from "@/lib/storage/r2";
 import { Image } from "image-js";
 import { jpegConverter } from "@/lib/image-converters/jpegConverter";
 import { webpConverter } from "@/lib/image-converters/webpConverter";
@@ -76,8 +76,13 @@ app.openapi(route, async (c) => {
     width: manipulated.width,
   });
 
-  const storage = getStorage();
-  await storage.put(`./${result.value.id}.webp`, resBinary);
+  await fs.mkdir(IMAGES_PATH, {
+    recursive: true,
+  });
+  await fs.writeFile(
+    path.resolve(IMAGES_PATH, `./${result.value.id}.webp`),
+    resBinary
+  );
 
   return c.json(result.value);
 });
